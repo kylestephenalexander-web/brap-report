@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where To Brap — Tony Grove Snow Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #10202e;
+    --night-deep: #0a161f;
+    --frost: #eef4f6;
+    --frost-dim: #b9cbd4;
+    --ice: #7cd4e8;
+    --ember: #e8794f;
+    --line: rgba(238,244,246,0.12);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(124,212,232,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(232,121,79,0.08), transparent 55%),
+      var(--night);
+    color:var(--frost);
+    font-family:'Archivo', -apple-system, sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px;}
+
+  header.top{padding:56px 0 40px;border-bottom:1px solid var(--line);}
+  .wordmark{
+    font-family:'Archivo Expanded', sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem, 6vw, 3.8rem);
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--frost);
+    text-transform:uppercase;
+  }
+  .wordmark span{color:var(--ice);}
+  .station-line{margin-top:10px;color:var(--frost-dim);font-size:1.02rem;max-width:56ch;}
+  .station-line strong{color:var(--frost);font-weight:600;}
+
+  .hero{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;padding:44px 0 40px;border-bottom:1px solid var(--line);}
+  .hero-figure{
+    font-family:'Archivo Expanded', sans-serif;
+    font-weight:800;
+    font-size:clamp(4.5rem, 14vw, 7.5rem);
+    line-height:0.85;
+    color:var(--ice);
+    letter-spacing:-0.02em;
+  }
+  .hero-figure sup{font-size:0.32em;font-weight:600;color:var(--frost-dim);margin-left:6px;top:-0.4em;}
+  .hero-caption{padding-bottom:10px;max-width:34ch;}
+  .hero-caption .label{font-size:1rem;font-weight:600;color:var(--frost);}
+  .hero-caption .sub{font-size:0.92rem;color:var(--frost-dim);margin-top:4px;}
+
+  .conditions-note{
+    margin:24px 0 0;
+    padding:14px 18px;
+    background:rgba(232,121,79,0.08);
+    border-left:3px solid var(--ember);
+    border-radius:2px;
+    font-size:0.92rem;
+    color:var(--frost-dim);
+    display:none;
+  }
+  .conditions-note.show{display:block;}
+  .conditions-note strong{color:var(--frost);}
+  .conditions-note.error{
+    background:rgba(232,121,79,0.14);
+    border-left-color:#c9553a;
+  }
+
+  section.periods{padding:44px 0 8px;}
+  .periods h2{
+    font-family:'Archivo Expanded', sans-serif;
+    font-weight:700;
+    font-size:1.3rem;
+    margin:0 0 22px;
+    color:var(--frost);
+  }
+  .period-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .period-card{background:var(--night-deep);padding:26px 22px;display:flex;flex-direction:column;gap:16px;}
+  .period-name{font-size:0.82rem;font-weight:600;color:var(--ice);}
+  .snow-amount{font-family:'Archivo Expanded', sans-serif;font-weight:800;font-size:2.6rem;color:var(--frost);line-height:1;}
+  .snow-amount .unit{font-size:1.1rem;font-weight:600;color:var(--frost-dim);margin-left:3px;}
+  .temp-row{display:flex;gap:18px;border-top:1px solid var(--line);padding-top:14px;}
+  .temp-item .t-label{font-size:0.72rem;color:var(--frost-dim);}
+  .temp-item .t-value{font-size:1.15rem;font-weight:600;margin-top:2px;}
+  .t-value.high{color:var(--ember);}
+  .t-value.low{color:var(--ice);}
+
+  section.detail{padding:40px 0 56px;border-top:1px solid var(--line);}
+  .detail h2{font-family:'Archivo Expanded', sans-serif;font-weight:700;font-size:1.3rem;margin:0 0 18px;}
+  table.readings{width:100%;border-collapse:collapse;font-size:0.92rem;}
+  table.readings caption{text-align:left;color:var(--frost-dim);font-size:0.85rem;margin-bottom:12px;}
+  table.readings th, table.readings td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);}
+  table.readings th{color:var(--frost-dim);font-weight:600;font-size:0.82rem;}
+  table.readings td{color:var(--frost);}
+  table.readings tr:last-child td{border-bottom:none;}
+
+  footer{padding:32px 0 56px;border-top:1px solid var(--line);color:var(--frost-dim);font-size:0.85rem;}
+  footer a{color:var(--ice);}
+
+  .skeleton{opacity:0.4;}
+
+  @media (max-width:640px){
+    .period-grid{grid-template-columns:1fr;}
+    .hero{flex-direction:column;align-items:flex-start;gap:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1 class="wordmark">Where To <span>Brap</span></h1>
+    <p class="station-line">Snow conditions for backcountry riders in Logan Canyon, Utah — sourced from the <strong>Tony Grove Lake SNOTEL station</strong> (Site 823, 8,450 ft), operated by the USDA NRCS.</p>
+  </header>
+
+  <div class="hero">
+    <div class="hero-figure skeleton" id="depth-figure">–<sup>in</sup></div>
+    <div class="hero-caption">
+      <div class="label">Current snow depth at Tony Grove Lake</div>
+      <div class="sub" id="depth-caption">Loading latest reading…</div>
+    </div>
+  </div>
+
+  <p class="conditions-note" id="note"></p>
+
+  <section class="periods">
+    <h2>Snowfall by period</h2>
+    <div class="period-grid">
+      <div class="period-card">
+        <div class="period-name">Last 24 hours</div>
+        <div class="snow-amount skeleton" id="snow-24h">–<span class="unit">in</span></div>
+        <div class="temp-row">
+          <div class="temp-item"><div class="t-label">High</div><div class="t-value high" id="high-24h">–</div></div>
+          <div class="temp-item"><div class="t-label">Low</div><div class="t-value low" id="low-24h">–</div></div>
+        </div>
+      </div>
+      <div class="period-card">
+        <div class="period-name">Last 48 hours</div>
+        <div class="snow-amount skeleton" id="snow-48h">–<span class="unit">in</span></div>
+        <div class="temp-row">
+          <div class="temp-item"><div class="t-label">High</div><div class="t-value high" id="high-48h">–</div></div>
+          <div class="temp-item"><div class="t-label">Low</div><div class="t-value low" id="low-48h">–</div></div>
+        </div>
+      </div>
+      <div class="period-card">
+        <div class="period-name">Last 7 days</div>
+        <div class="snow-amount skeleton" id="snow-7d">–<span class="unit">in</span></div>
+        <div class="temp-row">
+          <div class="temp-item"><div class="t-label">High</div><div class="t-value high" id="high-7d">–</div></div>
+          <div class="temp-item"><div class="t-label">Low</div><div class="t-value low" id="low-7d">–</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail">
+    <h2>Summary table</h2>
+    <table class="readings">
+      <caption>Snowfall = change in recorded snow depth over the period (floored at 0 when depth declined due to melt/settling). Temperatures are observed air temperature at the station.</caption>
+      <thead>
+        <tr><th>Period</th><th>Snowfall</th><th>High temp</th><th>Low temp</th><th>Total snow depth</th></tr>
+      </thead>
+      <tbody id="table-body">
+        <tr><td>Last 24 hours</td><td id="t-snow-24h">–</td><td id="t-high-24h">–</td><td id="t-low-24h">–</td><td id="t-depth-24h">–</td></tr>
+        <tr><td>Last 48 hours</td><td id="t-snow-48h">–</td><td id="t-high-48h">–</td><td id="t-low-48h">–</td><td id="t-depth-48h">–</td></tr>
+        <tr><td>Last 7 days</td><td id="t-snow-7d">–</td><td id="t-high-7d">–</td><td id="t-low-7d">–</td><td id="t-depth-7d">–</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer id="footer-text">
+    Data: Tony Grove Lake SNOTEL (Station 823, UT), USDA NRCS National Water and Climate Center Report Generator. Provisional data, subject to revision. Refreshed automatically about once an hour.
+  </footer>
+
+</div>
+
+<script>
+async function loadData(){
+  const noteEl = document.getElementById('note');
+  try {
+    const res = await fetch('./data.json', {cache: 'no-store'});
+    if (!res.ok) throw new Error('data.json request failed: ' + res.status);
+    const data = await res.json();
+
+    if (data.status === 'pending') {
+      noteEl.textContent = 'First data fetch hasn\'t run yet — it kicks off within the hour once GitHub Actions is enabled, or you can trigger it manually from the Actions tab.';
+      noteEl.classList.add('show');
+      document.getElementById('depth-caption').textContent = 'Waiting on first data fetch…';
+      return;
+    }
+
+    if (data.status !== 'ok') {
+      throw new Error(data.error || 'Unknown error from fetch job');
+    }
+
+    const depth = data.current_snow_depth_in;
+    document.getElementById('depth-figure').innerHTML = (depth === null ? '–' : depth) + '<sup>in</sup>';
+    document.getElementById('depth-figure').classList.remove('skeleton');
+    document.getElementById('depth-caption').textContent =
+      'As of ' + data.as_of + ', based on the station\'s most recent hourly reading.';
+
+    if (depth !== null && depth < 1) {
+      noteEl.textContent = 'Heads up: snow depth is under an inch right now — you may be looking at off-season or early-season conditions.';
+      noteEl.classList.add('show');
+    }
+
+    const periodMap = {
+      last_24h: '24h',
+      last_48h: '48h',
+      last_7d: '7d'
+    };
+
+    for (const [key, suffix] of Object.entries(periodMap)) {
+      const p = data.periods[key] || {};
+      const snowText = (p.snowfall_in === null || p.snowfall_in === undefined) ? 'n/a' : p.snowfall_in;
+      const highText = (p.high_f === null || p.high_f === undefined) ? '–' : p.high_f + '°F';
+      const lowText = (p.low_f === null || p.low_f === undefined) ? '–' : p.low_f + '°F';
+      const depthText = (depth === null || depth === undefined) ? '–' : depth + ' in';
+
+      const snowEl = document.getElementById('snow-' + suffix);
+      snowEl.innerHTML = snowText + '<span class="unit">in</span>';
+      snowEl.classList.remove('skeleton');
+      document.getElementById('high-' + suffix).textContent = highText;
+      document.getElementById('low-' + suffix).textContent = lowText;
+
+      document.getElementById('t-snow-' + suffix).textContent = snowText === 'n/a' ? 'n/a' : snowText + ' in';
+      document.getElementById('t-high-' + suffix).textContent = highText;
+      document.getElementById('t-low-' + suffix).textContent = lowText;
+      document.getElementById('t-depth-' + suffix).textContent = depthText;
+    }
+
+    const fetchedDate = new Date(data.fetched_at_utc);
+    document.getElementById('footer-text').innerHTML =
+      'Data: Tony Grove Lake SNOTEL (Station 823, UT), USDA NRCS National Water and Climate Center Report Generator. ' +
+      'Provisional data, subject to revision. Last refreshed ' + fetchedDate.toLocaleString() + '. ' +
+      'Source: <a href="https://wcc.sc.egov.usda.gov/reportGenerator/" target="_blank" rel="noopener">NRCS Report Generator</a>.';
+
+  } catch (err) {
+    noteEl.textContent = 'Couldn\'t load the latest reading right now (' + err.message + '). Try refreshing in a bit.';
+    noteEl.classList.add('show', 'error');
+    console.error(err);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

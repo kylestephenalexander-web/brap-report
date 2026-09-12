@@ -1,4 +1,30 @@
 {
-  "status": "pending",
-  "fetched_at_utc": null
+  "station": {
+    "name": "Tony Grove Lake",
+    "id": 823,
+    "state": "UT",
+    "elevation_ft": 8450
+  },
+  "as_of": "2026-09-12 05:00",
+  "current_snow_depth_in": 0.0,
+  "current_snow_depth_as_of": "2026-09-12 05:00",
+  "periods": {
+    "last_24h": {
+      "snowfall_in": 0.0,
+      "high_f": 65.7,
+      "low_f": 52.0
+    },
+    "last_48h": {
+      "snowfall_in": 0.0,
+      "high_f": 65.7,
+      "low_f": 48.7
+    },
+    "last_7d": {
+      "snowfall_in": null,
+      "high_f": 68.7,
+      "low_f": 42.8
+    }
+  },
+  "fetched_at_utc": "2026-09-12T13:42:23Z",
+  "status": "ok"
 }

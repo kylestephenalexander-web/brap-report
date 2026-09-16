@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 STATION = "823:ut:SNTL"
 CSV_URL = (
     "https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/"
-    f"hourly/{STATION}/-192,0/WTEQ::value,SNWD::value,PREC::value,TOBS::value"
+    f"hourly/{STATION}/-166,0/WTEQ::value,SNWD::value,PREC::value,TOBS::value"
 )
 
 OUTPUT_PATH = "data.json"

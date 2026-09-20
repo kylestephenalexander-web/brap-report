@@ -21,10 +21,10 @@
     },
     "last_7d": {
       "snowfall_in": null,
-      "high_f": 65.8,
+      "high_f": 65.5,
       "low_f": 35.8
     }
   },
-  "fetched_at_utc": "2026-09-20T18:24:59Z",
+  "fetched_at_utc": "2026-09-20T19:20:29Z",
   "status": "ok"
 }

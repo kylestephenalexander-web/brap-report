@@ -5,26 +5,26 @@
     "state": "UT",
     "elevation_ft": 8450
   },
-  "as_of": "2026-10-10 16:00",
+  "as_of": "2026-10-10 17:00",
   "current_snow_depth_in": 0.0,
-  "current_snow_depth_as_of": "2026-10-10 16:00",
+  "current_snow_depth_as_of": "2026-10-10 17:00",
   "periods": {
     "last_24h": {
       "snowfall_in": 0.0,
-      "high_f": 59.0,
-      "low_f": 47.7
+      "high_f": 58.3,
+      "low_f": 43.7
     },
     "last_48h": {
       "snowfall_in": 0.0,
       "high_f": 66.0,
-      "low_f": 47.7
+      "low_f": 43.7
     },
     "last_7d": {
       "snowfall_in": null,
       "high_f": 69.8,
-      "low_f": 47.7
+      "low_f": 43.7
     }
   },
-  "fetched_at_utc": "2026-10-11T00:36:54Z",
+  "fetched_at_utc": "2026-10-11T01:26:05Z",
   "status": "ok"
 }

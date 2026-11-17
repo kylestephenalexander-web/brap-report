@@ -1,5 +1,30 @@
 {
-  "status": "error",
-  "error": "HTTP Error 502: Bad Gateway",
-  "fetched_at_utc": "2026-11-17T03:48:00Z"
+  "station": {
+    "name": "Tony Grove Lake",
+    "id": 823,
+    "state": "UT",
+    "elevation_ft": 8450
+  },
+  "as_of": "2026-11-17 04:00",
+  "current_snow_depth_in": 0.0,
+  "current_snow_depth_as_of": "2026-11-17 04:00",
+  "periods": {
+    "last_24h": {
+      "snowfall_in": 0.0,
+      "high_f": 45.9,
+      "low_f": 33.4
+    },
+    "last_48h": {
+      "snowfall_in": 0.0,
+      "high_f": 45.9,
+      "low_f": 23.4
+    },
+    "last_7d": {
+      "snowfall_in": null,
+      "high_f": 55.8,
+      "low_f": 23.4
+    }
+  },
+  "fetched_at_utc": "2026-11-17T13:17:51Z",
+  "status": "ok"
 }
